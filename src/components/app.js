@@ -6,7 +6,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import {ListItems} from './listItems';
+import { Route } from 'react-router-dom';
+import { ListItems } from './listItems';
+import Home from './home';
+import Users from './users';
+import Laptops from './laptops';
+import Loans from './loans';
+
 
 const drawerWidth = 240;
 
@@ -37,7 +43,7 @@ const styles = theme => ({
 
 function ClippedDrawer(props) {
   const { classes } = props;
-
+  
   return (
     <div className={classes.root}>
       <AppBar position="absolute" className={classes.appBar}>
@@ -57,8 +63,10 @@ function ClippedDrawer(props) {
         <List>{ListItems}</List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Typography noWrap></Typography>
+      <Route exact path="/" render={() => <Home classes={ classes }/>} />
+      <Route path="/users" render={() => <Users classes={ classes }/> }/>
+      <Route path="/laptops" render={() => <Laptops classes={ classes }/> }/>
+      <Route path="/loans" render={() => <Loans classes={ classes }/> }/>
       </main>
     </div>
   );
