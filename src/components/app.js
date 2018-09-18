@@ -68,10 +68,10 @@ function ClippedDrawer(props) {
         <Grid container spacing={24}>
             <Grid item xs={12}>
                 <Paper className={classes.paper}>
-                  <Route exact path="/" render={() => <HomeScreen classes={ classes }/>} />
-                  <Route path="/users" render={() => <UserScreen classes={ classes }/> }/>
-                  <Route path="/laptops" render={() => <LaptopScreen classes={ classes }/> }/>
-                  <Route path="/loans" render={() => <LoanScreen classes={ classes }/> }/>
+                  <Route exact path="/" render={() => <HomeScreen />} />
+                  <Route path="/users" render={() => <UserScreen /> }/>
+                  <Route path="/laptops" render={() => <LaptopScreen /> }/>
+                  <Route path="/loans" render={() => <LoanScreen /> }/>
                 </Paper>
             </Grid>
         </Grid>
