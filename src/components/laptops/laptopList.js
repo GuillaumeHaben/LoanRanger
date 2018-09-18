@@ -6,21 +6,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import IconButton from '@material-ui/core/IconButton';
-import PersonIcon from '@material-ui/icons/Person';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from "react-redux";
 import compose from 'recompose/compose';
-import { deleteUser } from "../../actions/index";
+import { deleteLaptop } from "../../actions/index";
 
 const mapStateToProps = state => {
-  return { users: state.users };
+  return { laptops: state.laptops };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteUser: id => dispatch(deleteUser(id))
+    deleteLaptop: id => dispatch(deleteLaptop(id))
   };
 };
 
@@ -37,7 +37,7 @@ const styles = theme => ({
   },
 });
 
-class UserList extends React.Component {
+class LaptopList extends React.Component {
   
   constructor(props) {
 		super(props);
@@ -45,11 +45,11 @@ class UserList extends React.Component {
   }
 
   handleDelete(id) {
-		this.props.deleteUser(id);
+		this.props.deleteLaptop(id);
 	}
 
   render() {
-    const { classes, users } = this.props;
+    const { classes, laptops } = this.props;
 
     return (
       <div className={classes.root}>
@@ -57,13 +57,13 @@ class UserList extends React.Component {
           <Grid item xs={12} md={12}>
             <div className={classes.demo}>
               <List dense >
-							{users.map(user => (
-                  <ListItem key={user.id}>
+							{laptops.map(laptop => (
+                  <ListItem key={laptop.id}>
                     <ListItemIcon>
-                      <PersonIcon />
+                      <LaptopMacIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary={user.name}
+                      primary={laptop.name}
                     />
                     <ListItemSecondaryAction>
                       <IconButton aria-label="Delete" onClick={() => this.handleDelete(user.id)}>
@@ -81,11 +81,11 @@ class UserList extends React.Component {
   }
 }
 
-UserList.propTypes = {
+LaptopList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default compose(
 	withStyles(styles),
 	connect(mapStateToProps, mapDispatchToProps)
-)(UserList);
+)(LaptopList);

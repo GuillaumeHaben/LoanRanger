@@ -1,5 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import LaptopForm from './laptopForm';
+import LaptopList from './laptopList';
 
 export default class LaptopScreen extends React.Component {
   constructor(props) {
@@ -8,9 +9,8 @@ export default class LaptopScreen extends React.Component {
   render() {
     return (
       <div>
-        <Typography variant="title" align="center" color="textPrimary">
-          <br />Laptops
-        </Typography>
+        <LaptopForm />
+        <LaptopList />
       </div>
     );
   }
