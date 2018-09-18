@@ -9,7 +9,7 @@ import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import { Link } from 'react-router-dom';
 
-export const ListItems = (
+export const Sidebar = (
   <div>
     <Link to="/" style={{ textDecoration: 'none' }}>
       <ListItem button>

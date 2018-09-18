@@ -7,12 +7,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { Route } from 'react-router-dom';
-import { ListItems } from './listItems';
-import Home from './home';
-import Users from './users';
-import Laptops from './laptops';
-import Loans from './loans';
-
+import { Sidebar } from './home/sidebar';
+import HomeScreen from './home/homeScreen';
+import UserScreen from './users/userScreen';
+import LaptopScreen from './laptops/laptopScreen';
+import LoanScreen from './loans/loanScreen';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const drawerWidth = 240;
 
@@ -36,7 +37,7 @@ const styles = theme => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    minWidth: 0, // So the Typography noWrap works
+    minWidth: 0,
   },
   toolbar: theme.mixins.toolbar,
 });
@@ -60,13 +61,20 @@ function ClippedDrawer(props) {
         }}
       >
         <div className={classes.toolbar} />
-        <List>{ListItems}</List>
+        <List>{ Sidebar }</List>
       </Drawer>
       <main className={classes.content}>
-      <Route exact path="/" render={() => <Home classes={ classes }/>} />
-      <Route path="/users" render={() => <Users classes={ classes }/> }/>
-      <Route path="/laptops" render={() => <Laptops classes={ classes }/> }/>
-      <Route path="/loans" render={() => <Loans classes={ classes }/> }/>
+        <div className={classes.toolbar} />
+        <Grid container spacing={24}>
+            <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <Route exact path="/" render={() => <HomeScreen classes={ classes }/>} />
+                  <Route path="/users" render={() => <UserScreen classes={ classes }/> }/>
+                  <Route path="/laptops" render={() => <LaptopScreen classes={ classes }/> }/>
+                  <Route path="/loans" render={() => <LoanScreen classes={ classes }/> }/>
+                </Paper>
+            </Grid>
+        </Grid>
       </main>
     </div>
   );

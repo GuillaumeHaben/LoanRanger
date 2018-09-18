@@ -49,6 +49,7 @@
   "dependencies": {
     "@material-ui/core": "^3.0.3",
     "@material-ui/icons": "^3.0.1",
+    "babel-preset-stage-2": "^6.24.1",
     "electron-compile": "^6.4.3",
     "electron-devtools-installer": "^2.2.4",
     "electron-squirrel-startup": "^1.0.0",
@@ -56,12 +57,18 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-hot-loader": "^4.3.7",
-    "react-router-dom": "^4.3.1"
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "recompose": "^0.30.0",
+    "redux": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "electron-forge": "^5.2.2",

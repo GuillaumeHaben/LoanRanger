@@ -1,15 +1,16 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-export default class Home extends React.Component {
+export default class LaptopScreen extends React.Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
       <div>
-        <div className={this.props.classes.toolbar} />
-        <Typography noWrap>Home</Typography>
+        <Typography variant="title" align="center" color="textPrimary">
+          <br />Laptops
+        </Typography>
       </div>
     );
   }
