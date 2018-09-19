@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
+import Header from './home/Header';
 import { Route } from 'react-router-dom';
 import { Sidebar } from './home/sidebar';
 import HomeScreen from './home/homeScreen';
@@ -47,13 +45,7 @@ function ClippedDrawer(props) {
   
   return (
     <div className={classes.root}>
-      <AppBar position="absolute" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="title" color="inherit" noWrap>
-            Loan Ranger
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Header />
       <Drawer
         variant="permanent"
         classes={{
