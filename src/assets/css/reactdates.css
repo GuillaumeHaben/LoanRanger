@@ -1,0 +1,17 @@
+.DateRangePicker {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+.CalendarMonth_caption {
+    font-family: Helvetica, "sans-serif";
+}
+
+.CalendarDay {
+    font-family: Helvetica, "sans-serif";
+}
+.DateInput {
+    position: static;
+    display: inline-flex;
+}

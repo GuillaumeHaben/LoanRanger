@@ -4,6 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="./assets/css/_datepicker.css">
+  <link rel="stylesheet" href="./assets/css/reactdates.css">
 </head>
 <body style="overflow: hidden; background-color: rgba(0,0,0,0); margin: 0" >
   <div id="App"></div>
@@ -17,17 +19,18 @@ import { AppContainer } from 'react-hot-loader';
 import { Provider } from "react-redux";
 import { persistor, store } from './store/index';
 import { PersistGate } from 'redux-persist/integration/react';
+import 'react-dates/initialize';
 
 const render = () => {
   const App = require('./components/app').default;
   const Loader = require('./components/home/loader').default;
-  
+
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
-        <PersistGate loading={<Loader />} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <Router>
-              <App />
+            <App />
           </Router>
         </PersistGate>
       </Provider>

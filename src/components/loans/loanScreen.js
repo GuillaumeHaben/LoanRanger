@@ -1,15 +1,33 @@
 import React, { Component } from "react";
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import compose from 'recompose/compose';
+import { DateRangePicker } from 'react-dates';
+import Button from '@material-ui/core/Button';
+import uuid from "uuid";
+import { addLoan } from "../../actions/index";
+import { deleteAllLoans } from "../../actions/index";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import LaptopMacIcon from '@material-ui/icons/LaptopMac';
+import Grid from '@material-ui/core/Grid';
 
 const mapStateToProps = state => {
   return { 
     users: state.users,
-    laptops: state.laptops
+    laptops: state.laptops,
+    loans: state.loans
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addLoan: loan => dispatch(addLoan(loan)),
+    deleteAllLoans: () => dispatch(deleteAllLoans())
   };
 };
 
@@ -17,7 +35,10 @@ const mapStateToProps = state => {
 const styles = theme => ({
 	container: {
 		display: 'flex',
-		flexWrap: 'wrap',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'left',
+    minHeight: 100
 	},
 	textField: {
 		marginLeft: theme.spacing.unit,
@@ -25,10 +46,32 @@ const styles = theme => ({
 	},
 	dense: {
 		marginTop: 16,
-	},
+  },
 	menu: {
 		width: 200,
 	},
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+  iconSmall: {
+    fontSize: 20,
+  },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  root: {
+    flexGrow: 1,
+    width: '100%'
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  title: {
+    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
+  },
 });
 
 class LoanScreen extends Component {
@@ -37,9 +80,14 @@ class LoanScreen extends Component {
 		super(props);
 		this.state = {
       user: '',
-      laptop: ''
+      laptop: '',
+      availableLaptops: this.props.laptops,
+      startDate: null,
+      endDate: null,
+      focusedInput: null,
     };
-  }
+		this.handleSubmit = this.handleSubmit.bind(this);
+	}
 
   handleChange = name => event => {
     this.setState({
@@ -47,58 +95,86 @@ class LoanScreen extends Component {
     });
   };
 
-	render() {
-    const { classes, users, laptops } = this.props;
+	handleSubmit(laptopId) {
+		const { user, startDate, endDate } = this.state;
+		const id = uuid();
+		this.props.addLoan({ id, user, laptopId, startDate, endDate });
+		this.setState({ user: '', startDate: null, endDate: null, focusedInput: null });
+	}
 
+  availableLaptops(x, y) {
+    if (x && y && x !== 'undefined' && y !== 'undefined') {
+      const allLaptops = this.props.laptops;
+      const allLoans = this.props.loans;
+      
+      const availableLaptops = allLaptops.filter(laptop => {
+        const loanOfLaptop = allLoans.filter(loan => {
+          return loan.laptopId === laptop.id
+        });
+        for (const loan of loanOfLaptop) {
+          if (x.isBefore(loan.endDate) && y.isAfter(loan.startDate)) {
+            return false
+          }
+        }
+        return true
+      });
+      this.setState({availableLaptops});
+    }
+  }
+
+	render() {
+    const { classes } = this.props;
+        
 		return (
+      <div>
 			<form 
 					className={classes.container} 
 					noValidate 
-					autoComplete="off"
+          autoComplete="off"
+          onSubmit={this.handleSubmit}
 			>
-        <TextField
-          id="users"
-          select
-          label="User"
-          className={classes.textField}
-          value={this.state.user}
-          onChange={this.handleChange('user')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Select the user asking for a loan"
-          margin="normal"
-        >
-          {users.map(user => (
-            <MenuItem key={user.id} value={user.name}>
-              {user.name}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="laptops"
-          select
-          label="Laptop"
-          className={classes.textField}
-          value={this.state.laptop}
-          onChange={this.handleChange('laptop')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          helperText="Select the laptop given to the user"
-          margin="normal"
-        >
-          {laptops.map(laptop => (
-            <MenuItem key={laptop.id} value={laptop.name}>
-              {laptop.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <DateRangePicker
+          startDateId="startDate"
+          endDateId="endDate"
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          onDatesChange={({ startDate, endDate }) => { this.setState({ startDate, endDate }, () => this.availableLaptops(startDate, endDate))}}
+          focusedInput={this.state.focusedInput}
+          onFocusChange={(focusedInput) => { this.setState({ focusedInput })}}
+        />
+        <Button variant="outlined" className={classes.button} onClick={() => this.setState({availableLaptops: this.props.laptops, startDate: null, endDate: null})}>
+          Reset
+        </Button>
       </form>
+      <div className={classes.root}>
+        <Grid container spacing={16}>
+          <Grid item xs={12} md={12}>
+            <div className={classes.demo}>
+              <List dense>
+							{this.state.availableLaptops.map(laptop => (
+                  <ListItem key={laptop.id}>
+                    <ListItemIcon>
+                      <LaptopMacIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={laptop.name}
+                    />
+                    <ListItemSecondaryAction>
+                      <Button variant="outlined" className={classes.button} onClick={() => this.handleSubmit(laptop.id)}>
+                        Loan
+                      </Button>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+            </div>
+          </Grid>
+        </Grid>
+      </div>
+        <Button variant="outlined" className={classes.button} onClick={() => this.props.deleteAllLoans()}>
+          Delete All Loans
+        </Button>
+      </div>
     );
   }
 }
@@ -109,5 +185,5 @@ LoanScreen.propTypes = {
 
 export default compose(
 	withStyles(styles),
-	connect(mapStateToProps)
+	connect(mapStateToProps, mapDispatchToProps)
 )(LoanScreen);

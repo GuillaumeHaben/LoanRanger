@@ -50,7 +50,7 @@ class LaptopList extends React.Component {
 
   render() {
     const { classes, laptops } = this.props;
-
+    
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
@@ -66,7 +66,7 @@ class LaptopList extends React.Component {
                       primary={laptop.name}
                     />
                     <ListItemSecondaryAction>
-                      <IconButton aria-label="Delete" onClick={() => this.handleDelete(user.id)}>
+                      <IconButton aria-label="Delete" onClick={() => this.handleDelete(laptop.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </ListItemSecondaryAction>

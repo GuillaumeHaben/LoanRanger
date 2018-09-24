@@ -22,6 +22,8 @@ const styles = theme => ({
 
 function Loader(props) {
   const { classes } = props;
+  console.log("COUCOU");
+  
   return (
       <div className={classes.screen}>
         <Header />

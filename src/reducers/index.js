@@ -3,16 +3,20 @@ import {
   DELETE_USER,
   ADD_LAPTOP, 
   DELETE_LAPTOP,
+  ADD_LOAN,
+  DELETE_ALL_LOANS,
 } from "../constants/action-types";
 
 const initialState = {
   users: [],
-  laptops: []
+  laptops: [],
+  loans: []
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
 
+    /***** USER *****/
     case ADD_USER:
       return { ...state, 
         users: [...state.users, 
@@ -24,6 +28,7 @@ const rootReducer = (state = initialState, action) => {
         users: state.users.filter(user => user.id !== userId)
       }
 
+    /***** LAPTOP *****/
     case ADD_LAPTOP:
       return { ...state, 
         laptops: [...state.laptops, 
@@ -34,6 +39,16 @@ const rootReducer = (state = initialState, action) => {
       return { ...state,
         laptops: state.laptops.filter(laptop => laptop.id !== laptopId)
       }
+
+    /***** LOAN *****/
+    case ADD_LOAN:
+      return { ...state, 
+        loans: [...state.loans, 
+            action.payload] }
+
+    case DELETE_ALL_LOANS:
+      return { ...state, 
+        loans: [] }
 
     default:
       return state;
