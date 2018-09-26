@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from "react-redux";
 import compose from 'recompose/compose';
 import { deleteLaptop } from "../../actions/index";
+import { styles } from '../../assets/css/users.js';
 
 const mapStateToProps = state => {
   return { laptops: state.laptops };
@@ -23,19 +24,6 @@ const mapDispatchToProps = dispatch => {
     deleteLaptop: id => dispatch(deleteLaptop(id))
   };
 };
-
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    width: '100%'
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
-  },
-});
 
 class LaptopList extends React.Component {
   

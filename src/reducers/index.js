@@ -23,9 +23,9 @@ const rootReducer = (state = initialState, action) => {
             action.payload] }
 
     case DELETE_USER:
-      const userId = action.payload;
+      const selected = action.payload;
       return { ...state,
-        users: state.users.filter(user => user.id !== userId)
+        users: state.users.filter(user => !selected.includes(user.id))
       }
 
     /***** LAPTOP *****/

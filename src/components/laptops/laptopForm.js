@@ -6,29 +6,13 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import compose from 'recompose/compose';
 import PropTypes from 'prop-types';
+import { styles } from '../../assets/css/laptops.js';
 
 const mapDispatchToProps = dispatch => {
   return {
     addLaptop: laptop => dispatch(addLaptop(laptop))
   };
 };
-
-const styles = theme => ({
-	container: {
-		display: 'flex',
-		flexWrap: 'wrap',
-	},
-	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-	},
-	dense: {
-		marginTop: 16,
-	},
-	menu: {
-		width: 200,
-	},
-});
 
 class LaptopForm extends Component {
   

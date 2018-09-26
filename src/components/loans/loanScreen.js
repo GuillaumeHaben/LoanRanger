@@ -15,6 +15,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LaptopMacIcon from '@material-ui/icons/LaptopMac';
 import Grid from '@material-ui/core/Grid';
+import { styles } from '../../assets/css/loans.js';
 
 const mapStateToProps = state => {
   return { 
@@ -30,49 +31,6 @@ const mapDispatchToProps = dispatch => {
     deleteAllLoans: () => dispatch(deleteAllLoans())
   };
 };
-
-
-const styles = theme => ({
-	container: {
-		display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'left',
-    minHeight: 100
-	},
-	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-	},
-	dense: {
-		marginTop: 16,
-  },
-	menu: {
-		width: 200,
-	},
-  leftIcon: {
-    marginRight: theme.spacing.unit,
-  },
-  rightIcon: {
-    marginLeft: theme.spacing.unit,
-  },
-  iconSmall: {
-    fontSize: 20,
-  },
-  button: {
-    margin: theme.spacing.unit,
-  },
-  root: {
-    flexGrow: 1,
-    width: '100%'
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 2}px`,
-  },
-});
 
 class LoanScreen extends Component {
   

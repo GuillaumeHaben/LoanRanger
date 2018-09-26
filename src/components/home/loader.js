@@ -3,22 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Header from './Header';
-
-const styles = theme => ({
-  progress: {
-    maxWidth: "50%"
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
-  screen: {
-      width: "100vw",
-      height: "100vh",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-  }
-});
+import { styles } from '../../assets/css/home';
 
 function Loader(props) {
   const { classes } = props;
