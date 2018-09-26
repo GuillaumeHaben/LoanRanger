@@ -10,7 +10,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -19,7 +18,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import classNames from 'classnames';
 import { connect } from "react-redux";
 import compose from 'recompose/compose';
-import { deleteUser } from "../../actions/index";
+import { deleteUsers } from "../../actions/index";
 import { styles } from '../../assets/css/users.js';
 
 const mapStateToProps = state => {
@@ -28,7 +27,7 @@ const mapStateToProps = state => {
   
 const mapDispatchToProps = dispatch => {
     return {
-        deleteUser: selected => dispatch(deleteUser(selected))
+      deleteUsers: selectedUsers => dispatch(deleteUsers(selectedUsers))
     };
 };
 
@@ -254,7 +253,7 @@ class UserList extends React.Component {
   };
 
   handleDelete() {
-    this.props.deleteUser(this.state.selected);
+    this.props.deleteUsers(this.state.selected);
     this.setState({selected: []})
 	}
 
